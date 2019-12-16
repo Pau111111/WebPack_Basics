@@ -1,0 +1,10 @@
+//With SASS you can anidate 
+body{
+    background-color: blue;
+    h1{
+        font-style: italic;
+        &:hover{
+            color: wheat;
+        }
+    }
+}

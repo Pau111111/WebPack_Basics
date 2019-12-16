@@ -1,0 +1,22 @@
+## NPM
+- npm init -y (start node project with defaults)
+- npm install webpack
+- npm install webpack-cli
+## WebPack
+- webpack (file do you want to convert) example: npx webpack assets/js/main.js -o output.js
+- However, it's better to automatize this process, then create the file "webpack.config.js"
+- npx webpack (to execute 'webpack.config.js'). This file must be manually updated
+---
+- Now, for be able to export HTML,SCSS, ... files we need to install plugins
+- npm i html-webpack-plugin (for compile html)
+- npm i webpack-dev-server (for autocompile files). Execute it typing npx webpack-dev-server
+---
+- npm i style-loader
+- npm i css-loader
+- npm i sass-loader node-sass
+- This needs a need section in webpack config called "module". Here you specify which files webpack can process
+- CSS dependencys are administred in the (APP/BUNDLE/MAIN) JS file
+---
+- npm i jquery (you must add it in the js file)
+---
+- For compiling CSS you need: npm i mini-css-extract-plugin
