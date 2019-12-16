@@ -1,10 +1,10 @@
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
+//const path = require('path');
 
 module.exports = {
     //Path of the file to convert
-    entry: './src/assets/js/app.js',
+    entry: './src/assets/js/main.js',
 
     //Path to the converted file
     output: {
@@ -39,11 +39,17 @@ module.exports = {
         //Plugin that autoimport dependencies into HTML
         new htmlWebpackPlugin({
             template: './src/index.html',
-            filename: "./index.html"
+            filename: __dirname + "/dist/index.html"
         }),
         // Plugin that autoimport and compile CSS
         new miniCssExtractPlugin({
-            filename: "[name].css",
+            publicPath: (resourcePath, context) => {
+                // publicPath is the relative path of the resource to the context
+                // e.g. for ./css/admin/main.css the publicPath will be ../../
+                // while for ./css/main.css the publicPath will be ../
+                return path.relative(path.dirname(resourcePath), context) + '/';
+            },
+            filename: "../css/[name].css",
             chunkFilename: "[id].css"
         })
     ]
