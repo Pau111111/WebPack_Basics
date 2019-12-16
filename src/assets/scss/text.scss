@@ -1,0 +1,8 @@
+body{
+    h1{
+        font-style: italic;
+        &:hover{
+            color: wheat;
+        }
+    }
+}

@@ -20,3 +20,7 @@
 - npm i jquery (you must add it in the js file)
 ---
 - For compiling CSS you need: npm i mini-css-extract-plugin
+--- 
+- For compiling ES6 JS into ES5 use babel (install babel babel-loader @babel/core @babel/preset-env)
+---
+- For compiling images url-loader (and import image into JS)

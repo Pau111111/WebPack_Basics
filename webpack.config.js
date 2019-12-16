@@ -19,6 +19,16 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.js$/, //Regular expression
+                exclude: /(node_modules)/,//excluded node_modules
+                use: {
+                loader: "babel-loader",
+                    options: {
+                    presets: ["@babel/preset-env"]  //Preset used for env setup
+                    }
+                }
+            },
+            {
                 test: /\.css$/,
                 use: [
                     {loader: miniCssExtractPlugin.loader},
@@ -32,7 +42,18 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
-            }
+            },
+            {
+                test: /\.(png|jp(e*)g|svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8000, // Convert images < 8kb to base64 strings
+                        name: '../img/[hash]-[name].[ext]',
+                        esModule: false,
+                    }
+                }]
+            },
         ]
     },
     plugins: [
