@@ -1,10 +1,11 @@
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
-//const path = require('path');
+const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     //Path of the file to convert
-    entry: './src/assets/js/main.js',
+    entry: './src/components/main.js',
 
     //Path to the converted file
     output: {
@@ -43,15 +44,49 @@ module.exports = {
                     'sass-loader'
                 ]
             },
+            // {
+            //     test: /\.(png|jp(e*)g|svg)$/,
+            //     use: [{
+            //         loader: 'url-loader', //file-loader
+            //         options: {
+            //             limit: 8000, // Convert images < 8kb to base64 strings
+            //             name: '../img/[hash]-[name].[ext]',
+            //             esModule: false
+            //         }
+            //     }]
+            // },
+            
             {
-                test: /\.(png|jp(e*)g|svg)$/,
+                test: /\.(png)$/,  
                 use: [{
                     loader: 'url-loader',
-                    options: {
+                    options: { 
                         limit: 8000, // Convert images < 8kb to base64 strings
-                        name: '../img/[hash]-[name].[ext]',
+                        name: 'images/[hash]-[name].[ext]', 
                         esModule: false,
-                    }
+                    } 
+                }]
+            }, 
+            {
+                test: /\.(jpg)$/,  
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 20000, // Convert images < 8kb to base64 strings
+                        name: 'images/[hash]-[name].[ext]', 
+                        esModule: false,
+                    } 
+                }]
+            }, 
+            {
+                test: /\.(svg)$/,  
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 12000, // Convert images < 12kb to base64 strings
+                        name: 'images/[hash]-[name].[ext]', 
+                        esModule: false,
+                    } 
                 }]
             },
         ]
