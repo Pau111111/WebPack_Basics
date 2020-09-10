@@ -1,14 +1,17 @@
-const webpack = require("webpack");
-const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     //Path of the file to convert
+    mode: "development",
     entry: './src/components/main.js',
 
     //Path to the converted file
     output: {
+        // path: __dirname + '/dist/assets/js',
+        // filename: 'app.js'
         path: __dirname + '/dist/assets/js',
         filename: 'app.js'
     },
@@ -30,16 +33,27 @@ module.exports = {
                 }
             },
             {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "html-loader",
+                        options: {
+                            minimize: true
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.css$/,
                 use: [
-                    {loader: miniCssExtractPlugin.loader},
+                    {loader: MiniCssExtractPlugin.loader},
                     {loader: 'css-loader'},
                 ]
             },
             {
                 test: /\.scss$/,
                 use: [
-                    miniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
@@ -62,7 +76,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: { 
                         limit: 8000, // Convert images < 8kb to base64 strings
-                        name: 'images/[hash]-[name].[ext]', 
+                        name: 'img/[hash]-[name].[ext]', 
                         esModule: false,
                     } 
                 }]
@@ -73,7 +87,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: { 
                         limit: 20000, // Convert images < 8kb to base64 strings
-                        name: 'images/[hash]-[name].[ext]', 
+                        name: 'img/[hash]-[name].[ext]', 
                         esModule: false,
                     } 
                 }]
@@ -84,7 +98,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: { 
                         limit: 12000, // Convert images < 12kb to base64 strings
-                        name: 'images/[hash]-[name].[ext]', 
+                        name: 'img/[hash]-[name].[ext]', 
                         esModule: false,
                     } 
                 }]
@@ -93,12 +107,17 @@ module.exports = {
     },
     plugins: [
         //Plugin that autoimport dependencies into HTML
-        new htmlWebpackPlugin({
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     jQuery: 'jquery'
+        // }),
+        new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: __dirname + "/dist/index.html"
+            //filename: '../../index.html'
         }),
         // Plugin that autoimport and compile CSS
-        new miniCssExtractPlugin({
+        new MiniCssExtractPlugin({
             publicPath: (resourcePath, context) => {
                 // publicPath is the relative path of the resource to the context
                 // e.g. for ./css/admin/main.css the publicPath will be ../../
