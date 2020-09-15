@@ -9,45 +9,45 @@ module.exports = {
     entry: './src/components/main.js',
 
     //Path to the converted file
-    output: {
-        // path: __dirname + '/dist/assets/js',
-        // filename: 'app.js'
-        path: __dirname + '/dist/assets/js',
-        filename: 'app.js'
-    },
+    // output: {
+    //     // path: __dirname + '/dist/assets/js',
+    //     // filename: 'app.js'
+    //     path: __dirname + '/dist/assets/js',
+    //     filename: 'app.js'
+    // },
     //Por for the webpack-dev-server (autocompile code)
     devServer: {
         port: 5555
     },
     //This will contain the files that are not JS that you want to autoimport and compile into your project
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.js$/, //Regular expression
-                exclude: /(node_modules)/,//excluded node_modules
+                exclude: /(node_modules)/, //excluded node_modules
                 use: {
-                loader: "babel-loader",
+                    loader: "babel-loader",
                     options: {
-                    presets: ["@babel/preset-env"]  //Preset used for env setup
+                        presets: ["@babel/preset-env"] //Preset used for env setup
                     }
                 }
             },
             {
                 test: /\.html$/,
-                use: [
-                    {
-                        loader: "html-loader",
-                        options: {
-                            minimize: true
-                        }
+                use: [{
+                    loader: "html-loader",
+                    options: {
+                        minimize: true
                     }
-                ]
+                }]
             },
             {
                 test: /\.css$/,
-                use: [
-                    {loader: MiniCssExtractPlugin.loader},
-                    {loader: 'css-loader'},
+                use: [{
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
                 ]
             },
             {
@@ -69,38 +69,41 @@ module.exports = {
             //         }
             //     }]
             // },
-            
+
             {
-                test: /\.(png)$/,  
+                test: /\.(png)$/,
                 use: [{
                     loader: 'url-loader',
-                    options: { 
+                    options: {
                         limit: 8000, // Convert images < 8kb to base64 strings
-                        name: 'img/[hash]-[name].[ext]', 
+                        name: 'assets/img/[hash]-[name].[ext]',
+                        //encoding: 'base64',
                         esModule: false,
-                    } 
+                    }
                 }]
-            }, 
+            },
             {
-                test: /\.(jpg)$/,  
+                test: /\.(jpg)$/,
                 use: [{
                     loader: 'url-loader',
-                    options: { 
-                        limit: 20000, // Convert images < 8kb to base64 strings
-                        name: 'img/[hash]-[name].[ext]', 
+                    options: {
+                        limit: 12000, // Convert images < 8kb to base64 strings
+                        name: 'assets/img/[hash]-[name].[ext]',
+                        //encoding: 'base64',
                         esModule: false,
-                    } 
+                    }
                 }]
-            }, 
+            },
             {
-                test: /\.(svg)$/,  
+                test: /\.(svg)$/,
                 use: [{
                     loader: 'url-loader',
-                    options: { 
+                    options: {
                         limit: 12000, // Convert images < 12kb to base64 strings
-                        name: 'img/[hash]-[name].[ext]', 
+                        name: 'assets/img/[hash]-[name].[ext]',
+                        //encoding: 'base64',
                         esModule: false,
-                    } 
+                    }
                 }]
             },
         ]
@@ -124,7 +127,7 @@ module.exports = {
                 // while for ./css/main.css the publicPath will be ../
                 return path.relative(path.dirname(resourcePath), context) + '/';
             },
-            filename: "../css/[name].css",
+            filename: "assets/css/[name].css",
             chunkFilename: "[id].css"
         })
     ]
